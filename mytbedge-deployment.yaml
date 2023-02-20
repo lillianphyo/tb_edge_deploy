@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mytbedge
+  name: mytbedge
+  namespace: regiona
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mytbedge
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mytbedge
+    spec:
+      containers:
+        - env:
+            - name: CLOUD_ROUTING_KEY
+              value: d29eb78e-b166-3b1a-4c28-5dc0e3ff42bd
+            - name: CLOUD_ROUTING_SECRET
+              value: enk23p3s4dhsicptag8j
+            - name: CLOUD_RPC_HOST
+              value: demo.thingsboard.io
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres.regiona.svc.lab.uit.edu.mm:5432/tb-edge
+          image: thingsboard/tb-edge:3.4.3EDGE
+          name: mytbedge
+          ports:
+            - containerPort: 8080
+            - containerPort: 1883
+            - containerPort: 5683
+              protocol: UDP
+            - containerPort: 5684
+              protocol: UDP
+            - containerPort: 5685
+              protocol: UDP
+            - containerPort: 5686
+              protocol: UDP
+            - containerPort: 5687
+              protocol: UDP
+            - containerPort: 5688
+              protocol: UDP
+          resources: {}
+         # volumeMounts:
+         #   - mountPath: /data
+         #     name: mytb-edge-data
+         #   - mountPath: /var/log/tb-edge
+         #     name: mytb-edge-logs
+      restartPolicy: Always
+      #volumes:
+      #  - name: mytb-edge-data
+      #    persistentVolumeClaim:
+      #      claimName: mytb-edge-data
+      #  - name: mytb-edge-logs
+      #    persistentVolumeClaim:
+      #      claimName: mytb-edge-logs
