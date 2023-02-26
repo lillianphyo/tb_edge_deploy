@@ -42,13 +42,5 @@ spec:
             request:
               cpu: "250m"
               memory: "64Mi"
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: mytb-edge-data-db
-              subPath: postgres
       restartPolicy: Always
-      volumes:
-        - name: mytb-edge-data-db
-          persistentVolumeClaim:
-            claimName: mytb-edge-data-db
 status: {}

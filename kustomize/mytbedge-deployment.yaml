@@ -34,7 +34,7 @@ spec:
             - name: CLOUD_RPC_HOST
               value: demo.thingsboard.io
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://postgres.regiona.svc.lab.uit.edu.mm:5432/tb-edge
+              value: jdbc:postgresql://postgres.regiona.svc.kcluster.myanmarapn.com:5432/tb-edge
           image: thingsboard/tb-edge:3.4.3EDGE
           name: mytbedge
           ports:
